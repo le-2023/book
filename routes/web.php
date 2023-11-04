@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/message', [MessageController::class, 'index']);
+Route::get('/messages', [MessageController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
