@@ -10,6 +10,12 @@
 <body>
     <main>
         <h1>Message</h1>
+        <form action="/messages" method="post">
+            @csrf
+            <input type="text" name="body">
+            <input type="submit" value="投稿">
+
+        </form>
         <ul>
             @foreach($messages as $message)
             <li>{{$message->body}}</li>

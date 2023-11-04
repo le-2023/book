@@ -19,7 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/messages', [MessageController::class, 'index']);
+Route::get('/messages', [MessageController::class, 'index'])->name('message.index');
+Route::post('/messages', [MessageController::class, 'store'])->name('message.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
