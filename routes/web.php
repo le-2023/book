@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\BookController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/messages', [MessageController::class, 'index'])->name('message.index');
-Route::post('/messages', [MessageController::class, 'store'])->name('message.store');
+Route::get('messages', [MessageController::class, 'index']);
+Route::post('messages', [MessageController::class, 'store']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::prefix('admin/books')
+    ->name('book.')
+    ->controller(BookController::class)
+    ->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('{id}', 'show')->whereNumber('id')->name('show');
+    Route::get('create', 'create')->name('create');
+    Route::post('', 'store')->name('store');
 });
-
-require __DIR__ . '/auth.php';
+    
