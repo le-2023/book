@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('author_details', function (Blueprint $table) {
+        Schema::create('author_book', function (Blueprint $table) {
+            $table->foreignId('book_id')->constrained();
             $table->foreignId('author_id')->constrained();
-            $table->string('email,100')->nullable()->unique();
-            $table->string('address', 100)->nullable();
-            $table->timestamps();
-            $table->primary('author_id');
+            $table->timestamps();    
+
+            $table->primary(['book_id', 'author_id']);
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('author_details');
+        Schema::dropIfExists('author_book');
     }
 };
